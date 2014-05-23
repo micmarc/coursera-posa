@@ -64,6 +64,13 @@ public class SimpleSemaphore {
      */
     void release() {
         // TODO - you fill in here
+    	mLock.lock();
+    	try {
+    		++mAvailablePermits;
+    		mPermitsNotZero.signalAll();
+    	} finally {
+    		mLock.unlock();
+    	}
     }
     
     /**
