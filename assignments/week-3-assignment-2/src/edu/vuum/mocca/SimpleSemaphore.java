@@ -48,6 +48,15 @@ public class SimpleSemaphore {
      */
     public void acquireUninterruptibly() {
         // TODO - you fill in here
+    	mLock.lock();
+    	try {
+	    	while (mAvailablePermits == 0) {
+	    		mPermitsNotZero.awaitUninterruptibly();
+	    	}
+	    	--mAvailablePermits;
+    	} finally {
+    		mLock.unlock();
+    	}
     }
 
     /**
