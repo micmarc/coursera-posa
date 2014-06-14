@@ -89,8 +89,8 @@ public class PingPongRight {
 	        	acquire();
 	        	System.out.printf("%s(%d)%n", mStringToPrint, i);
 	        	release();
-	        	mLatch.countDown();
         	}
+        	mLatch.countDown();
         }
 
         /**
@@ -121,7 +121,7 @@ public class PingPongRight {
 
         // TODO initialize this by replacing null with the appropriate
         // constructor call.
-        mLatch = new CountDownLatch(maxIterations);
+        mLatch = new CountDownLatch(2);
 
         // Create the ping and pong SimpleSemaphores that control
         // alternation between threads.
@@ -154,11 +154,7 @@ public class PingPongRight {
         // TODO - replace the following line with a barrier
         // synchronizer call to mLatch that waits for both threads to
         // finish.
-        try {
-			mLatch.await();
-		} catch (InterruptedException e) {
-			System.err.println("Thread was interrupted while waiting!");
-		}
+        mLatch.await();
 
         System.out.println(finishString);
     }
