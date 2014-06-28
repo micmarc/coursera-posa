@@ -109,8 +109,8 @@ public class DownloadActivity extends DownloadBase {
             // TODO - You fill in here to start the
             // DownloadIntentService with the appropriate Intent
             // returned from the makeIntent() factory method.
-        	Intent intent = DownloadIntentService.makeIntent(this, handler, getUrlString());
-        	startService(intent);
+        	Intent serviceIntent = DownloadIntentService.makeIntent(this, handler, getUrlString());
+        	startService(serviceIntent);
         	
             which = "Starting DownloadIntentService";
             break;
@@ -119,6 +119,8 @@ public class DownloadActivity extends DownloadBase {
             // TODO - You fill in here to start the
             // ThreadPoolDownloadService with the appropriate Intent
             // returned from the makeIntent() factory method.
+            Intent threadPoolIntent = ThreadPoolDownloadService.makeIntent(this, handler, getUrlString());
+            startService(threadPoolIntent);
 
             which = "Starting ThreadPoolDownloadService";
             break;
