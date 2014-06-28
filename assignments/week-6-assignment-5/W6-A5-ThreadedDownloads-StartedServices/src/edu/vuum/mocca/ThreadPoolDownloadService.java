@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Messenger;
+import android.util.Log;
 
 /**
  * @class ThreadPoolDownloadService
@@ -96,9 +97,11 @@ public class ThreadPoolDownloadService extends Service {
 
         Runnable downloadRunnable = new Runnable() {
             public void run() {
-                Messenger messenger = intent.getExtras() != null 
-                        ? (Messenger) intent.getExtras().get(DownloadUtils.MESSENGER_KEY)
-                        : null;
+                Messenger messenger = intent.getParcelableExtra(DownloadUtils.MESSENGER_KEY);
+                if (messenger == null) {
+                    Log.e(DownloadUtils.TAG, "Messenger is null, aborting download!");
+                    return;
+                }
                 DownloadUtils.downloadAndRespond(getApplicationContext(), intent.getData(), 
                         messenger);
             }
